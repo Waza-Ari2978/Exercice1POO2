@@ -49,4 +49,33 @@ public class EmployeeTest
 		assertTrue(id1 == id2 - EMPLOYEE_NUMBER_INCREMENT);
 	 }
 	 
+	 @Test 
+	 public void GIVEN_OneEmployee_WHEN_ARaiseIsGiven_THEN_TheSalaryWillBeReflectedAccordingly() 
+	 {
+		//Arrange
+		float raiseAmount = StandardSalaryIncrease.MAXIMUM_RAISE-1; 
+		Employee Employee1 = new Employee(ANY_SALARY,ANY_NAME);
+		StandardSalaryIncrease raise = new StandardSalaryIncrease(raiseAmount);
+		//Act 
+		Employee1.applySalaryIncrease(raise);
+		//Assert
+		assertTrue(Employee1.getAnnualSalary() == ANY_SALARY + (ANY_SALARY*raiseAmount));
+	 }
+	 
+	 @Test 
+	 public void GIVEN_OneEmployee_WHEN_MultipleRaisesAreGiven_THEN_TheSalaryWillBeReflectedAccordingly() 
+	 {
+		//Arrange
+		float raiseAmount = StandardSalaryIncrease.MAXIMUM_RAISE-1; 
+		Employee Employee1 = new Employee(ANY_SALARY,ANY_NAME);
+		StandardSalaryIncrease raise = new StandardSalaryIncrease(raiseAmount);
+		StandardSalaryIncrease raise2 = new StandardSalaryIncrease(raiseAmount);
+		//Act 
+		Employee1.applySalaryIncrease(raise);
+		Employee1.applySalaryIncrease(raise2);
+		float target = ANY_SALARY + (ANY_SALARY*raiseAmount);
+		float target2 = target*raiseAmount;
+		//Assert
+		assertTrue(Employee1.getAnnualSalary() == target + target2);
+	 }
 }

@@ -1,5 +1,7 @@
 package employee;
 
+import java.util.ArrayList;
+
 /**
  * @author Cédric Bouchard
  * @version 2020
@@ -11,6 +13,7 @@ public class Employee
     private int salary;
     private static int employeeNumber = 0;
     public final int EMPLOYEE_NUMBER_INCREMENT = 10;
+    private ArrayList<StandardSalaryIncrease> historyOfSalaryIncrease = new ArrayList<StandardSalaryIncrease>();
 
     /**
      * Constructeur d'objets de classe Employee
@@ -29,4 +32,18 @@ public class Employee
     	employeeNb = this.employeeNb;
     	return employeeNb;
     }
+    public void applySalaryIncrease(StandardSalaryIncrease raise) {
+    	this.historyOfSalaryIncrease.add(raise);
+    }
+	public float getAnnualSalary() {
+		float annualSalary = this.salary;
+		for (StandardSalaryIncrease i : historyOfSalaryIncrease) {
+				float salaryIncreaseAmount = i.getSalaryIncreaseAmount(annualSalary);
+				annualSalary+= salaryIncreaseAmount;
+		    }
+		
+		
+		
+		return annualSalary;
+	}
 }
